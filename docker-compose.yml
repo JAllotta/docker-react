@@ -1,0 +1,18 @@
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /home/node/app/node_modules # do not try to map a folder to this path within the container
+      - .:/home/node/app # map everything in the present working directory into container /app
+  tests: 
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /home/node/app/node_modules # do not try to map a folder to this path within the container
+      - .:/home/node/app # map everything in the present working directory into container /app
+    command: ["npm", "run", "test"]
